@@ -10,14 +10,14 @@ variables:
   # Use the cached directory above.
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
 
-junit:
-  image: maven:3.6.2-jdk-11 # docker image with Maven
-  before_script:
+#junit:
+ # image: maven:3.6.2-jdk-11 # docker image with Maven
+  #before_script:
     # The runners on the forge need a proxy to access the web. mvn
     # ignores the $http_proxy & friends variable => write a
     # configuration file that does this for us.
     - . setup-mvn-proxy.sh
     # Useful only for debugging
     #- cat ~/.m2/settings.xml
-  script:
+  #script:
     - cd MIF03 && mvn test --batch-mode
