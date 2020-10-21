@@ -8,15 +8,23 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
 <%@ page import="java.util.List" %>
 
-<%! private final GestionPassages passages = new GestionPassages(); %>
+<%--Definition de la javaBean de Type GestionPassages--%>
+<jsp:useBean id="passages" class="fr.univlyon1.m1if.m1if03.classes.GestionPassages"
+             scope="application">
+
+</jsp:useBean>
+
+<%--<%! private final GestionPassages passages = new GestionPassages(); %>--%>
 
 
 <% if (request.getMethod().equals("GET")) { //redirection des utilisateurs non connectés à la page d'accueil
+
     User user = (User) request.getSession().getAttribute("user");
-//    response.addHeader("user", String.valueOf(user));
+
     if (user == null) {
         response.sendRedirect("index.html");
     }
+
     return;
 }
 %>
