@@ -26,6 +26,4 @@ deploy :
         - . setup-mvn-proxy.sh && echo "$CI_SSH_KEY" > ci_private_key.pem && chmod 400 ci_private_key.pem
     script :
         - mvn package 
-        - pwd
-        - ls -l
         - scp -v -o StrictHostKeyChecking=no -i ci_private_key.pem /builds/p1809163/mif03-2021-gr58/target/mif03-gr58.war gitlabci@192.168.75.116:/opt/tomcat/webapps/v1.war
