@@ -8,24 +8,26 @@ stages:
 build : 
     stage : build
     before_script:
-        - . monFichierSH.sh
+        - . setup-mvn-proxy.sh 
     script :
-        cd java && mvn compile
+        cd src/main/java && mvn compile
 
 
 test : 
     stage : test
     before_script:
-        - . monFichierSH.sh
+        - . setup-mvn-proxy.sh 
     script :
-        cd java && mvn test
+        cd src/main/java && mvn test
 
 
 deploy : 
     stage : deploy
     before_script:
-        - . monFichierSH.sh
+        - . setup-mvn-proxy.sh && chmod 400 $CI_SSH_KEY
     script :
-        cd java
+        - pwd
+        - ls -l
+        - scp -v -o StrictHostKeyChecking=no -i $CI_SSH_KEY /builds/UCBL2021/MIF03/mif03-gr58/target/v1.war gitlabci@192.168.75.116:/opt/tomcat/webapps/v1.war
 
 
