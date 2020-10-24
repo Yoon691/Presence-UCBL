@@ -10,41 +10,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Passage" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
 
 <jsp:useBean id="passages" class="fr.univlyon1.m1if.m1if03.classes.GestionPassages"
              scope="application">
 </jsp:useBean>
 
 <%List<Passage>passageList;%>
-
-<html>
-<head>
-    <title>User</title>
-</head>
-<body>
-    <h2>Informations Utilisateur</h2>
-    <p>
-        login :
-        <% passageList = passages.getAllPassages();%>
-        <% if (request.getMethod().equals("GET")) {
-            String login = request.getParameter("login");
-            for (Passage passage : passageList) {
-                if (passage.getUser().getLogin().toLowerCase().equals(login)) {
-                    out.println(login);
-                } else {
-                    response.setStatus(404);
-                }
-
-            }
+<%
+    User user = (User) request.getSession().getAttribute("user");
+    User userCurrent = null;
+    passageList = passages.getAllPassages();
+    for (Passage passage : passageList) {
+        if (passage.getUser().getLogin().equals(user.getLogin())) {
+            userCurrent = new User(user.getLogin());
         }
-
-        %>
-
-<%--        <c:forEach items="<%= passageList %>" var="passage">--%>
-
-<%--            ${passage.user.login}--%>
-<%--        </c:forEach>--%>
-    </p>
-
-</body>
-</html>
+    }
+    if(userCurrent != null) {
+%>
+<h1>User <%=user.getLogin() %></h1>
+<h3>Login : <%=user.getLogin() %></h3>
+<% } else { %>
+<h3> Utilisateur <%=user.getLogin() %> non trouvé </h3>
+<%} %>
