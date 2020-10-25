@@ -35,9 +35,6 @@ Projets réalisés par :
     - Intégration / Déploiement continus 
 
     - URLs de notre projet :
-        http://192.168.75.116:8080/v1/
-        https://192.168.75.116/api/v1/
+        - http://192.168.75.116:8080/v1/
+        - https://192.168.75.116/api/v1/
 
-
-
-On a override service dans Deco.java car sinon aucune autre méthode était appelée
