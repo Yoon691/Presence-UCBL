@@ -1,7 +1,3 @@
-.DS_Store
-/target/**
-
-
 # Ignore les fichiers de configuration d'Eclipse
 .classpath
 .project
