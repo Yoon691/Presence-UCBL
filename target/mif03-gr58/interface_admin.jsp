@@ -15,10 +15,9 @@
              scope="application">
 </jsp:useBean>
 
-<c:if test="${sessionScope.admin}">
-    <% response.sendRedirect("interface_admin.jsp");%>
+<c:if test="${!sessionScope.admin}">
+    <% response.sendRedirect("interface.jsp");%>
 </c:if>
-
 
 <!doctype html>
 <html>
@@ -32,17 +31,21 @@
 <div>
     <h3>Menu</h3>
     <ul>
-        <li><a href="interface.jsp?action=passage">Passages</a></li>
-        <li><a href="interface.jsp?action=info_user">Utilisateur</a></li>
+        <li><a href="interface_admin.jsp?action=passage">Tous les passages</a></li>
+        <li><a href="interface_admin.jsp?action=lesSalles">Toutes les salles</a></li>
+        <li><a href="recherche_user.html">Info sur un utlisateur</a></li>
         <li><a href="saisie.html">Nouveau passage</a></li>
         <li><a href="Deco">Se déconnecter</a></li>
     </ul>
 </div>
 <c:choose>
     <c:when test="${ action_value == 'passage'}">
-        <jsp:include page="passage.jsp"></jsp:include>
+        <jsp:include page="passages_admin.jsp"></jsp:include>
     </c:when>
-    <c:when test="${ action_value == 'info_user'}">
+    <c:when test="${ action_value == 'lesSalles'}">
+        <jsp:include page="salles.jsp"></jsp:include>
+    </c:when>
+    <c:when test="${ action_value == 'recherche_user'}">
         <jsp:include page="user.jsp"></jsp:include>
     </c:when>
 </c:choose>

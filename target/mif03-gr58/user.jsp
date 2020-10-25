@@ -16,7 +16,9 @@
              scope="application">
 </jsp:useBean>
 
-<%List<Passage>passageList;%>
+<%List<Passage>passageList = null;%>
+
+<c:if test="${!sessionScope.admin}">
 <%
     User user = (User) request.getSession().getAttribute("user");
     User userCurrent = null;
@@ -24,12 +26,41 @@
     for (Passage passage : passageList) {
         if (passage.getUser().getLogin().equals(user.getLogin())) {
             userCurrent = new User(user.getLogin());
+            }
         }
-    }
     if(userCurrent != null) {
 %>
-<h1>User <%=user.getLogin() %></h1>
-<h3>Login : <%=user.getLogin() %></h3>
+    <h1>User <%=user.getLogin() %></h1>
+    <h3>Login : <%=user.getLogin() %></h3>
 <% } else { %>
 <h3> Utilisateur <%=user.getLogin() %> non trouvé </h3>
 <%} %>
+
+</c:if>
+
+
+<c:if test="${sessionScope.admin}">
+    <%  User userRechercher = null; %>
+ <% String login = request.getParameter("userLogin");
+
+    passageList = passages.getAllPassages();
+    for (Passage passage : passageList) {
+        if (passage.getUser().getLogin().equals(login)) {
+            userRechercher = new User(login);
+        }
+
+    }
+     if( userRechercher != null) {
+ %>
+    <h1>Login : <%= userRechercher.getLogin() %></h1>
+    <% } else { %>
+    <h3> Utilisateur  non trouvé </h3>
+    <%} %>
+
+</c:if>
+
+
+
+
+
+

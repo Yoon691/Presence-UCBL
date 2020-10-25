@@ -30,59 +30,54 @@
 
 <% if (request.getMethod().equals("POST")) { // Traitement du formulaire envoyé par saisie.html
 
-    if (request.getParameter("entree") != null) {
+    if(request.getParameter("entree") != null) {
         passages.add(new Passage(
                 (User) session.getAttribute("user"),
                 new Salle(request.getParameter("nom")),
                 new Date())
         );
-    } else if (request.getParameter("sortie") != null) {
+    } else if(request.getParameter("sortie") != null) {
         List<Passage> passTemp = passages.getPassagesByUserAndSalle(
                 (User) session.getAttribute("user"),
                 new Salle(request.getParameter("nom"))
         );
-        if (!passTemp.isEmpty()) {
+        if(!passTemp.isEmpty()) {
             Passage p = passTemp.get(0);
             p.setSortie(new Date());
         }
     }
 
     String action = request.getParameter("action");
-    if (session.getAttribute("admin").equals(true)) {
-        response.sendRedirect("interface_admin.jsp?action=" + action);
-    } else {
-        response.sendRedirect("interface.jsp?action=" + action);
-    }
 
-}
-%>
+} %>
+
 
 <% List<Passage> passagesAffiches = null; %>
 
-<c:if test="${!sessionScope.admin}">
-    <h1>Liste de vos passages</h1>
-    <% passagesAffiches = passages.getPassagesByUser((User) session.getAttribute("user")); %>
+<c:if test="${sessionScope.admin}">
+    <h2>Liste de tous les passages</h2>
+    <% passagesAffiches = passages.getAllPassages(); %>
 </c:if>
 
 <table>
-    <tr>
-        <th>Login</th>
-        <th>Salle</th>
-        <th>Entrée</th>
-        <th>Sortie</th>
-    </tr>
+<tr>
+    <th>Login</th>
+    <th>Salle</th>
+    <th>Entrée</th>
+    <th>Sortie</th>
+</tr>
 
-    <c:forEach items="<%= passagesAffiches %>" var="passage">
-        <tr>
-            <td>${passage.user.login}</td>
-            <td>${passage.salle.nom}</td>
-            <td>
-                <fmt:formatDate value="${passage.entree}" var="heureEntree" type="time" />
-                    ${heureEntree}
-            </td>
-            <td>
-                <fmt:formatDate value="${passage.sortie}" var="heureSortie" type="time" />
-                    ${heureSortie}
-            </td>
-        </tr>
-    </c:forEach>
+<c:forEach items="<%= passagesAffiches %>" var="passage">
+    <tr>
+        <td>${passage.user.login}</td>
+        <td>${passage.salle.nom}</td>
+        <td>
+            <fmt:formatDate value="${passage.entree}" var="heureEntree" type="time" />
+                ${heureEntree}
+        </td>
+        <td>
+            <fmt:formatDate value="${passage.sortie}" var="heureSortie" type="time" />
+                ${heureSortie}
+        </td>
+    </tr>
+</c:forEach>

@@ -15,6 +15,11 @@
              scope="application">
 </jsp:useBean>
 
+<c:if test="${sessionScope.admin}">
+    <% response.sendRedirect("interface_admin.jsp");%>
+</c:if>
+
+
 <!doctype html>
 <html>
 <head>
@@ -34,16 +39,12 @@
     </ul>
 </div>
 <c:choose>
-    <c:when test="${ action_value== 'passage'}">
+    <c:when test="${ action_value == 'passage'}">
         <jsp:include page="passage.jsp"></jsp:include>
     </c:when>
-    <c:when test="${ action_value== 'info_user'}">
+    <c:when test="${ action_value == 'info_user'}">
         <jsp:include page="user.jsp"></jsp:include>
     </c:when>
-    <c:when test="${ action_value== 'saisir_passage'}">
-        <jsp:include page="saisie.html"></jsp:include>
-    </c:when>
-
 </c:choose>
 </body>
 </html>
