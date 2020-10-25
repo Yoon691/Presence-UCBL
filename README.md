@@ -3,11 +3,12 @@
 
 Projets réalisés par :
 
-Aliou Sadio BARRY p1809163
-Younes DERBAL p1809208
+    - Aliou Sadio BARRY p1809163
+    - Younes DERBAL p1809208
 
 
-Section TP2
+
+***Section TP2***
 
 1.  Travail sur l'application
 
