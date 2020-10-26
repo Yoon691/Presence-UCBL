@@ -88,10 +88,10 @@
         <c:forEach items="${requestScope.passagesAffiches}" var="passage">
             <tr>
                 <td>
-                    <a href="<%= request.getRequestURI()%>?contenu=passages&login=${passage.user.login}">${passage.user.login}</a>
+                    <a href="<%= request.getServletPath().substring(1)%>?contenu=passages&login=${passage.user.login}">${passage.user.login}</a>
                 </td>
                 <td>
-                    <a href="<%= request.getRequestURI()%>?contenu=passages&nomSalle=${passage.salle.nom}">${passage.salle.nom}</a>
+                    <a href="<%= request.getServletPath().substring(1)%>?contenu=passages&nomSalle=${passage.salle.nom}">${passage.salle.nom}</a>
                 </td>
                 <td>
                     <fmt:formatDate value="${passage.entree}" var="heureEntree" type="time"/>
