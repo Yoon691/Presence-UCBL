@@ -1,53 +1,69 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: barry
-  Date: 24/10/2020
-  Time: 18:37
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.classes.Salle" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.ParseException" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page errorPage="erreurs/error.jsp" %>
 
-<%--Definition de la javaBean de Type GestionPassages--%>
-<jsp:useBean id="passages" class="fr.univlyon1.m1if.m1if03.classes.GestionPassages"
-             scope="application">
-</jsp:useBean>
-
-<c:if test="${!sessionScope.admin}">
-    <% response.sendRedirect("interface.jsp");%>
+<c:if test="${!sessionScope.user.admin}">
+    <% response.sendRedirect("interface.jsp"); %>
 </c:if>
 
-<!doctype html>
-<html>
+<jsp:useBean id="passages" type="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
+
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <title>Presence</title>
+    <meta charset="UTF-8">
+    <title>Présence UCBL</title>
+    <link rel="stylesheet" type="text/css" href="static/presence.css">
 </head>
 <body>
-<h2>Hello <%= ((User) (session.getAttribute("user"))).getLogin() %> !</h2>
+<jsp:include page="composants/header.jsp"/>
 
-<c:set var="action_value" value="${param.action}"></c:set>
-<div>
-    <h3>Menu</h3>
-    <ul>
-        <li><a href="interface_admin.jsp?action=passage">Tous les passages</a></li>
-        <li><a href="interface_admin.jsp?action=lesSalles">Toutes les salles</a></li>
-        <li><a href="recherche_user.html">Info sur un utlisateur</a></li>
-        <li><a href="saisie.html">Nouveau passage</a></li>
-        <li><a href="Deco">Se déconnecter</a></li>
-    </ul>
-</div>
-<c:choose>
-    <c:when test="${ action_value == 'passage'}">
-        <jsp:include page="passages_admin.jsp"></jsp:include>
-    </c:when>
-    <c:when test="${ action_value == 'lesSalles'}">
-        <jsp:include page="salles.jsp"></jsp:include>
-    </c:when>
-    <c:when test="${ action_value == 'recherche_user'}">
-        <jsp:include page="user.jsp"></jsp:include>
-    </c:when>
-</c:choose>
+<main class="wrapper">
+    <jsp:include page="composants/menu_admin.jsp"/>
+    <article class="contenu">
+        <c:choose>
+            <c:when test="${param.contenu == null }">
+                <jsp:include page="contenus/default_admin.jsp"/>
+            </c:when>
+            <c:when test="${param.contenu == \"passages\"}">
+                <%
+                    if (request.getParameter("nomSalle") != null) {
+                        if (request.getParameter("login") != null)
+                            request.setAttribute("passagesAffiches", passages.getPassagesByUserAndSalle(new User(request.getParameter("login")), new Salle(request.getParameter("nomSalle"))));
+                        else if (request.getParameter("dateEntree") != null && request.getParameter("dateSortie") != null) {
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", new Locale("us"));
+                                Date dateEntree = sdf.parse(request.getParameter("dateEntree"));
+                                Date dateSortie = sdf.parse(request.getParameter("dateSortie"));
+                                request.setAttribute("passagesAffiches", passages.getPassagesBySalleAndDates(new Salle(request.getParameter("nomSalle")), dateEntree, dateSortie));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        } else
+                            request.setAttribute("passagesAffiches", passages.getPassagesBySalle(new Salle(request.getParameter("nomSalle"))));
+                    } else if (request.getParameter("login") != null)
+                        request.setAttribute("passagesAffiches", passages.getPassagesByUser(new User(request.getParameter("login"))));
+                    else
+                        request.setAttribute("passagesAffiches", passages.getAllPassages());
+                %>
+                <jsp:include page="contenus/passages.jsp"/>
+            </c:when>
+            <c:when test="${param.contenu == \"user\"}">
+                <jsp:include page="contenus/user.jsp?login=${param.login}"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="contenus/${param.contenu}.jsp"/>
+            </c:otherwise>
+        </c:choose>
+    </article>
+</main>
+
+<jsp:include page="composants/footer.html"/>
 </body>
 </html>

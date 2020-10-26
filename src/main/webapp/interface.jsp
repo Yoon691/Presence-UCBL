@@ -1,50 +1,56 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: barry
-  Date: 24/10/2020
-  Time: 18:37
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.classes.Salle" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page errorPage="erreurs/error.jsp" %>
 
-<%--Definition de la javaBean de Type GestionPassages--%>
-<jsp:useBean id="passages" class="fr.univlyon1.m1if.m1if03.classes.GestionPassages"
-             scope="application">
-</jsp:useBean>
+<jsp:useBean id="passages" class="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
+<jsp:useBean id="salles" class="java.util.HashMap" scope="application"/>
+<jsp:useBean id="users" class="java.util.HashMap" type="java.util.Map<java.lang.String,fr.univlyon1.m1if.m1if03.classes.User>" scope="application"/>
 
-<c:if test="${sessionScope.admin}">
-    <% response.sendRedirect("interface_admin.jsp");%>
-</c:if>
+<% // Très moche :
+    // - on essaye d'ajouter l'utilisateur à chaque requête
+    // - pas de contrôle sur les types des clés et des valeurs des entrées de la map
+    User user = (User) session.getAttribute("user");
+    if (!users.containsValue(user))
+        users.put(user.getLogin(), user);
+%>
 
-
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-    <title>Presence</title>
+    <meta charset="UTF-8">
+    <title>Présence UCBL</title>
+    <link rel="stylesheet" type="text/css" href="static/presence.css">
 </head>
 <body>
-<h2>Hello <%= ((User) (session.getAttribute("user"))).getLogin() %> !</h2>
+<jsp:include page="composants/header.jsp"/>
 
-<c:set var="action_value" value="${param.action}"></c:set>
-<div>
-    <h3>Menu</h3>
-    <ul>
-        <li><a href="interface.jsp?action=passage">Passages</a></li>
-        <li><a href="interface.jsp?action=info_user">Utilisateur</a></li>
-        <li><a href="saisie.html">Nouveau passage</a></li>
-        <li><a href="Deco">Se déconnecter</a></li>
-    </ul>
-</div>
-<c:choose>
-    <c:when test="${ action_value == 'passage'}">
-        <jsp:include page="passage.jsp"></jsp:include>
-    </c:when>
-    <c:when test="${ action_value == 'info_user'}">
-        <jsp:include page="user.jsp"></jsp:include>
-    </c:when>
-</c:choose>
+<main class="wrapper">
+    <jsp:include page="composants/menu.jsp"/>
+    <article class="contenu">
+        <c:choose>
+            <c:when test="${param.contenu == null }">
+                <jsp:include page="contenus/default.jsp"/>
+            </c:when>
+            <c:when test="${param.contenu == \"passages\"}">
+                <%
+                    if (request.getParameter("nomSalle") != null)
+                        request.setAttribute("passagesAffiches", passages.getPassagesByUserAndSalle((User) session.getAttribute("user"), new Salle(request.getParameter("nomSalle"))));
+                    else
+                        request.setAttribute("passagesAffiches", passages.getPassagesByUser((User) session.getAttribute("user"))); %>
+                <jsp:include page="contenus/passages.jsp"/>
+            </c:when>
+            <c:when test="${param.contenu == \"user\"}">
+                <jsp:include page="contenus/user.jsp?login=${sessionScope.user.login}"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="contenus/${param.contenu}.jsp"/>
+            </c:otherwise>
+        </c:choose>
+    </article>
+</main>
+
+<jsp:include page="composants/footer.html"/>
 </body>
 </html>
