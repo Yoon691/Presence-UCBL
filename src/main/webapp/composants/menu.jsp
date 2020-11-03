@@ -7,11 +7,9 @@
         <a href="interface.jsp?contenu=saisie_passage">Nouveau passage</a><br>
         <a href="interface.jsp?contenu=passages">Mes passages</a>
     </p>
-    <c:if test="${sessionScope.user.admin}">
-        <p>
-            <em><a href="interface_admin.jsp">Interface d'administration</a></em><br>
-        </p>
-    </c:if>
+    <p>
+        <em><a href="interface_admin.jsp">Interface d'administration</a></em><br>
+    </p>
     <p>
         <a href="Deco">Déconnexion</a>
     </p>

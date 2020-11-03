@@ -8,10 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="erreurs/error.jsp" %>
 
-<c:if test="${!sessionScope.user.admin}">
-    <% response.sendRedirect("interface.jsp"); %>
-</c:if>
-
 <jsp:useBean id="passages" type="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
 
 <!DOCTYPE html>

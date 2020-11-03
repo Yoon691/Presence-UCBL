@@ -33,8 +33,6 @@ public class AuthentificationFilter implements Filter {
                 request.getRequestDispatcher("interface.jsp").forward(request, response);
 
             } else {
-                // Redirection vers la page de connexion
-                response.setStatus(301);
                 response.sendRedirect( "index.jsp" );
             }
         }
