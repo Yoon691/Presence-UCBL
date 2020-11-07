@@ -1,25 +1,11 @@
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Salle" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page errorPage="erreurs/error.jsp" %>
 
-<jsp:useBean id="passages" type="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
-<jsp:useBean id="salles" type="java.util.Map<java.lang.String,fr.univlyon1.m1if.m1if03.classes.Salle>" scope="application"/>
-<jsp:useBean id="users" type="java.util.Map<java.lang.String,fr.univlyon1.m1if.m1if03.classes.User>" scope="application"/>
-
-<% // Très moche :
-    // - on essaye d'ajouter l'utilisateur à chaque requête
-    // - pas de contrôle sur les types des clés et des valeurs des entrées de la map
-    User user = (User) session.getAttribute("user");
-    if (!users.containsValue(user))
-        users.put(user.getLogin(), user);
-%>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <title>Présence UCBL</title>
     <link rel="stylesheet" type="text/css" href="static/presence.css">
 </head>
@@ -30,16 +16,11 @@
     <jsp:include page="composants/menu.jsp"/>
     <article class="contenu">
         <c:choose>
-            <c:when test="${param.contenu == null }">
+            <c:when test="${param.contenu == null}">
                 <jsp:include page="contenus/default.jsp"/>
             </c:when>
             <c:when test="${param.contenu == \"passages\"}">
-                <%
-                    if (request.getParameter("nomSalle") != null)
-                        request.setAttribute("passagesAffiches", passages.getPassagesByUserAndSalle((User) session.getAttribute("user"), new Salle(request.getParameter("nomSalle"))));
-                    else
-                        request.setAttribute("passagesAffiches", passages.getPassagesByUser((User) session.getAttribute("user"))); %>
-                <jsp:include page="contenus/passages.jsp"/>
+               <jsp:include page="contenus/passages.jsp"/>
             </c:when>
             <c:when test="${param.contenu == \"user\"}">
                 <jsp:include page="contenus/user.jsp?login=${sessionScope.user.login}"/>

@@ -1,54 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=ISO-8859-1" %>
 <%@ page import="java.text.ParseException" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.*" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Passage" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Salle" %>
 
-<jsp:useBean id="passages" type="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
-<jsp:useBean id="salles" type="java.util.Map<java.lang.String, fr.univlyon1.m1if.m1if03.classes.Salle>"
-             scope="application"/>
+<%--<c:set var="salle" value="${salles[param.nom]}"/>--%>
 
-<c:set var="salle" value="${salles[param.nom]}"/>
-
-<% // Gestion des POST
-    if (request.getMethod().equals("POST")) { // Traitement du formulaire envoyÃ© par saisie_passage.jsp
-        @SuppressWarnings("unchecked")
-        List<Passage> passagesAffiches = (List<Passage>) request.getAttribute("passagesAffiches");
-        String nomSalle = request.getParameter("nom");
-        Salle salle;
-        if (salles.get(nomSalle) == null) {
-            salle = new Salle(nomSalle);
-            salles.put(nomSalle, salle);
-        } else
-            salle = salles.get(nomSalle);
-        User user = (User) session.getAttribute("user");
-
-        if (request.getParameter("entree") != null) {
-            Passage p = new Passage(user, salle, new Date());
-            passages.add(p);
-            passagesAffiches.add(p); // On rajoute le passage dans passageAffiches qui arrive par un attribut de requÃªte
-            salle.incPresent();
-        } else if (request.getParameter("sortie") != null) {
-            List<Passage> passTemp = passages.getPassagesByUserAndSalle(user, salle);
-            for (Passage p : passTemp) { // On mÃ©morise une sortie de tous les passages existants et sans sortie
-                if (p.getSortie() == null) {
-                    p.setSortie(new Date());
-                    salle.decPresent();
-                }
-            }
-        }
-    }
-
-%>
 <section>
 
-    <c:if test="${salle.saturee}">
-        <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dÃ©passÃ©e</span></h2>
-    </c:if>
+<%--    <c:if test="${salle.saturee}">--%>
+<%--        <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dépassée</span></h2>--%>
+<%--    </c:if>--%>
     <h1>
         Liste des passages
         <c:if test="${param.login != null}">
@@ -82,7 +45,7 @@
         <tr>
             <th>Login</th>
             <th>Salle</th>
-            <th>EntrÃ©e</th>
+            <th>Entrée</th>
             <th>Sortie</th>
         </tr>
         <c:forEach items="${requestScope.passagesAffiches}" var="passage">
@@ -104,7 +67,7 @@
                 <c:if test="${passage.sortie != null && sessionScope.user.admin}">
                     <td>
                         <a href="interface_admin.jsp?contenu=passages&nomSalle=${passage.salle.nom}&dateEntree=${passage.entree}&dateSortie=${passage.sortie}">tous
-                            les prÃ©sents</a>
+                            les présents</a>
                     </td>
                 </c:if>
             </tr>

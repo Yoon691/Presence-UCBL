@@ -22,7 +22,7 @@ public class AutorisationFilter implements Filter {
         if (user.getAdmin()) {
             chain.doFilter(req, resp);
         }else {
-            response.sendRedirect( "interface.jsp" );
+            response.sendRedirect(request.getContextPath() + "/presence");
         }
     }
 

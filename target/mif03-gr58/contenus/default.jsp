@@ -1,19 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-
-<jsp:useBean id="passages" type="fr.univlyon1.m1if.m1if03.classes.GestionPassages" scope="application"/>
+<%@ page contentType="text/html;charset=ISO-8859-1" %>
 
 <section id="contenu">
     <p><strong>Hello ${sessionScope.user.nom} !</strong></p>
-    <c:set var="myPassages" value="${passages.getPassagesByUserEncours(sessionScope.user)}"/>
-    <c:if test="${myPassages.size() > 0}">
-        <p>Vous Ãªtes actuellement dans les salles :</p>
+    <c:if test="${requestScope.passagesAffiches.size() > 0}">
+        <p>Vous êtes actuellement dans les salles :</p>
         <ul>
-            <c:forEach var="p" items="${myPassages}">
+            <c:forEach var="p" items="${requestScope.passagesAffiches}">
                 <li>
                         ${p.salle.nom}
                     <c:if test="${p.salle.saturee}">
-                        <strong style="color: red">Alerte : cette salle est saturÃ©e !</strong>
+                        <strong style="color: red">Alerte : cette salle est saturée !</strong>
                     </c:if>
                 </li>
             </c:forEach>

@@ -30,7 +30,7 @@ public class AuthentificationFilter implements Filter {
                 session.setAttribute("user", user);
                 session.setAttribute("admin", user.getAdmin());
 
-                request.getRequestDispatcher("interface.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/presence");
 
             } else {
                 response.sendRedirect( "index.jsp" );
