@@ -5,13 +5,11 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.*" %>
 
-<%--<c:set var="salle" value="${salles[param.nom]}"/>--%>
-
 <section>
 
-<%--    <c:if test="${salle.saturee}">--%>
-<%--        <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dépassée</span></h2>--%>
-<%--    </c:if>--%>
+    <c:if test="${requestScope.salles.saturee}">
+        <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dépassée</span></h2>
+    </c:if>
     <h1>
         Liste des passages
         <c:if test="${param.login != null}">

@@ -1,12 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=ISO-8859-1" %>
 <%@ page errorPage="erreurs/error.jsp" %>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="ISO-8859-1">
-    <title>PrÃ©sence UCBL</title>
+    <title>Présence UCBL</title>
     <link rel="stylesheet" type="text/css" href="static/presence.css">
 </head>
 <body>

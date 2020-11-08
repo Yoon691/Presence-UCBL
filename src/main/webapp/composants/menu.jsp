@@ -8,7 +8,7 @@
         <a href="<c:url value="/presence?contenu=passages"/>">Mes passages</a>
     </p>
     <p>
-        <em><a href="interface_admin.jsp">Interface d'administration</a></em><br>
+        <em><a href="<c:url value="/admin"/>">Interface d'administration</a></em><br>
     </p>
     <p>
         <a href="Deco">Déconnexion</a>

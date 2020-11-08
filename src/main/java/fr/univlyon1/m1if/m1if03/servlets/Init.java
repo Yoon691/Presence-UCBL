@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 @WebServlet(name = "Init", urlPatterns = "/Init", loadOnStartup = 1)
+
 public class Init extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

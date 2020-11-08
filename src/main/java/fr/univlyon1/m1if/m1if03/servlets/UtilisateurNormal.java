@@ -21,12 +21,11 @@ import java.util.List;
 
 @WebServlet(name = "UserServelet", urlPatterns = "/presence")
 public class UtilisateurNormal extends HttpServlet {
-    protected HashMap<String, Salle> salles = new HashMap<>();
-    protected HashMap<String, User> users = new HashMap<>();
-    protected GestionPassages passages = new GestionPassages();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GestionPassages passages = (GestionPassages) request.getServletContext().getAttribute("passages");
+        HashMap<String, Salle> salles = (HashMap<String, Salle>) request.getServletContext().getAttribute("salles");
+
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
 
@@ -66,6 +65,7 @@ public class UtilisateurNormal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GestionPassages passages = (GestionPassages) request.getServletContext().getAttribute("passages");
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
 
