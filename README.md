@@ -39,6 +39,7 @@ Projets réalisés par :
         - https://192.168.75.116/api/v1/
 
 ***Section TP3***
-    - Déploiement 
-        - http://192.168.75.116:8080/v2/
-        - https://192.168.75.116/api/v2/ (ne marche pas bien pour le moment)
+
+- Déploiement
+    -  http://192.168.75.116:8080/v2/
+    -  https://192.168.75.116/api/v2/ (ne marche pas bien pour le moment)
