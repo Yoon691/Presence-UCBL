@@ -6,7 +6,6 @@
 <%@ page import="java.util.*" %>
 
 <section>
-
     <c:if test="${requestScope.salles.saturee}">
         <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dépassée</span></h2>
     </c:if>
@@ -64,7 +63,7 @@
                 </td>
                 <c:if test="${passage.sortie != null && sessionScope.user.admin}">
                     <td>
-                        <a href="interface_admin.jsp?contenu=passages&nomSalle=${passage.salle.nom}&dateEntree=${passage.entree}&dateSortie=${passage.sortie}">tous
+                        <a href="../interface_admin.jsp?contenu=passages&nomSalle=${passage.salle.nom}&dateEntree=${passage.entree}&dateSortie=${passage.sortie}">tous
                             les présents</a>
                     </td>
                 </c:if>

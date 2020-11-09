@@ -24,6 +24,7 @@ public class UtilisateurAdmin extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        @SuppressWarnings("unchecked")
         HashMap<String, Salle> salles = (HashMap<String, Salle>) request.getServletContext().getAttribute("salles");
         try {
             if (request.getParameter("nomSalle") != null && request.getParameter("capacite") != null) {
@@ -37,11 +38,14 @@ public class UtilisateurAdmin extends HttpServlet {
 
         }
         request.setAttribute("salles", salles);
-        request.getRequestDispatcher("interface_admin.jsp").include(request,response);
+        request.getRequestDispatcher("WEB-INF/jsp/interface_admin.jsp").include(request,response);
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GestionPassages passages = (GestionPassages) request.getServletContext().getAttribute("passages");
+        @SuppressWarnings("unchecked")
         HashMap<String, Salle> salles = (HashMap<String, Salle>) request.getServletContext().getAttribute("salles");
+       @SuppressWarnings("unchecked")
+        HashMap<String, User> users = (HashMap<String, User>) request.getServletContext().getAttribute("users");
         if (request.getParameter("nomSalle") != null) {
             if (request.getParameter("login") != null)
                 request.setAttribute("passagesAffiches", passages.getPassagesByUserAndSalle(new User(request.getParameter("login")), new Salle(request.getParameter("nomSalle"))));
@@ -62,6 +66,7 @@ public class UtilisateurAdmin extends HttpServlet {
             request.setAttribute("passagesAffiches", passages.getAllPassages());
 
         request.setAttribute("salles", salles);
-        request.getRequestDispatcher("interface_admin.jsp").include(request,response);
+       request.setAttribute("users", users);
+        request.getRequestDispatcher("WEB-INF/jsp/interface_admin.jsp").include(request,response);
     }
 }

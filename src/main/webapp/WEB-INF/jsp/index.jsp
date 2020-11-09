@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -13,7 +14,7 @@
     <aside class="menu"></aside>
     <article class="contenu">
         <h1>Bienvenue sur Présence UCBL</h1>
-        <form method="get" action="interface.jsp">
+        <form method="get" action="<c:url value="/presence"/>">
             <p>
                 <label>
                     Entrez votre login :

@@ -5,15 +5,10 @@
 
 # Ignore les fichiers de configuration d'Intellij
 /.idea/
-../.idea/
-../*.iml
-/*.iml
-../*.iws
-./*.iws
+*.iml
+*.iws
 
 # Ignore les fichiers produits par Maven pour ne versionner que le code,
 # pas les executables ou les logs.
-../log/
-../target/
 /log/
 /target/

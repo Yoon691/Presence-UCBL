@@ -9,7 +9,7 @@
             <th>Capacité</th>
             <th>Nb présents</th>
         </tr>
-        <c:forEach items="${requestScope.salles.entrySet()}" var="salleEntry" varStatus="boucle">
+        <c:forEach items="${requestScope.salles.entrySet()}" var="salleEntry" >
             <tr>
                 <td>${salleEntry.value.nom}</td>
                 <td>

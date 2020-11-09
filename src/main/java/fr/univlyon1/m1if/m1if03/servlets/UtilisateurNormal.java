@@ -23,12 +23,17 @@ import java.util.List;
 public class UtilisateurNormal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        @SuppressWarnings("unchecked")
         GestionPassages passages = (GestionPassages) request.getServletContext().getAttribute("passages");
+        @SuppressWarnings("unchecked")
         HashMap<String, Salle> salles = (HashMap<String, Salle>) request.getServletContext().getAttribute("salles");
+        @SuppressWarnings("unchecked")
+        HashMap<String, User> users = (HashMap<String, User>) request.getServletContext().getAttribute("users");
 
         HttpSession session = request.getSession(true);
         User user = (User) session.getAttribute("user");
-
+        if (!users.containsValue(user))
+            users.put(user.getLogin(), user);
         //Traitement des données fournies par saisie_passage
         String nomSalle = request.getParameter("nom");
         if (request.getParameter("nomSalle") != null) {
@@ -42,7 +47,7 @@ public class UtilisateurNormal extends HttpServlet {
             salles.put(nomSalle, salle);
         } else
             salle = salles.get(nomSalle);
-
+        @SuppressWarnings("unchecked")
         List<Passage> passagesAffiches = (List<Passage>) request.getAttribute("passagesAffiches");
         if (request.getParameter("entree") != null) {
             Passage p = new Passage(user, salle, new Date());
@@ -59,7 +64,7 @@ public class UtilisateurNormal extends HttpServlet {
             }
         }
 
-        request.getRequestDispatcher("interface.jsp").include(request, response);
+        request.getRequestDispatcher("WEB-INF/jsp/interface.jsp").include(request, response);
 
     }
 
@@ -75,7 +80,7 @@ public class UtilisateurNormal extends HttpServlet {
             request.setAttribute("passagesAffiches", passages.getPassagesByUser(user));
         }
 
-        request.getRequestDispatcher("interface.jsp").include(request,response);
+        request.getRequestDispatcher("WEB-INF/jsp/interface.jsp").include(request,response);
     }
 
 }
