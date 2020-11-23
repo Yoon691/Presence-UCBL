@@ -4,7 +4,6 @@
 <c:set var="user" value="${requestScope.users[param.login]}"/>
 
 <section>
-<%--<c:forEach items="${requestScope.users.entrySet()}" var="user" >--%>
     <h1>User ${user.login}</h1>
 
     <c:if test="${user.login == null}">
@@ -18,5 +17,5 @@
             <li>admin : ${user.admin == true ? "oui" : "non"}</li>
         </ul>
     </c:if>
-<%--</c:forEach>--%>
+
 </section>

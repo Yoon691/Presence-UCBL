@@ -5,8 +5,10 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.*" %>
 
+
 <section>
-    <c:if test="${requestScope.salles.saturee}">
+    <c:set var="salle" value="${requestScope.salles[param.nom]}"/>
+    <c:if test="${salle.saturee}">
         <h2><span style="color: red">Alerte : capacite de la salle ${param.nom} dépassée</span></h2>
     </c:if>
     <h1>

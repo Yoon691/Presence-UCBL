@@ -1,5 +1,5 @@
-fr/univlyon1/m1if/m1if03/classes/User.class
 fr/univlyon1/m1if/m1if03/servlets/UtilisateurAdmin.class
+fr/univlyon1/m1if/m1if03/classes/User.class
 fr/univlyon1/m1if/m1if03/filtres/AuthentificationFilter.class
 fr/univlyon1/m1if/m1if03/classes/GestionPassages.class
 fr/univlyon1/m1if/m1if03/servlets/UtilisateurNormal.class

@@ -1,11 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=ISO-8859-1" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <section>
     <h1>Passages d'un utilisateur</h1>
 
-    <form method="get" action="<c:url value="/admin"/>">
+    <form method="get" action="interface_admin.jsp">
         <label>
-            Login de l'utilisateur cherché :
+            Login de l'utilisateur cherchÃ© :
             <input type="text" name="login" autofocus>
         </label>
         <input type="hidden" name="contenu" value="passages">

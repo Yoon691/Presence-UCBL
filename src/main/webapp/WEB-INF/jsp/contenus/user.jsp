@@ -1,21 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=ISO-8859-1" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 
-<c:set var="user" value="${requestScope.users[param.login]}"/>
+<jsp:useBean id="users" type="java.util.Map<java.lang.String,fr.univlyon1.m1if.m1if03.classes.User>" scope="application"/>
+<c:set var="user" value="${users[param.login]}"/>
 
 <section>
-    <h1>User ${user.login}</h1>
+    <h1>User ${param.login}</h1>
 
-    <c:if test="${user.login == null}">
-        <h1>Utilisateur ${user.login} non trouvé</h1>
+    <c:if test="${user == null}">
+        <h1>Utilisateur ${param.login} non trouvÃ©</h1>
     </c:if>
 
-    <c:if test="${user.login != null}">
+    <c:if test="${user != null}">
         <ul>
-            <li>Login : ${user.login}</li>
+            <li> Login : ${user.login}</li>
             <li>Nom : ${user.nom}</li>
-            <li>admin : ${user.admin == true ? "oui" : "non"}</li>
+            <li> admin : ${user.admin == true ? "oui" : "non"}</li>
         </ul>
     </c:if>
-
 </section>
