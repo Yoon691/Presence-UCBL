@@ -4,11 +4,11 @@
 /.settings/
 
 # Ignore les fichiers de configuration d'Intellij
-../.idea/
+ mif03-2021-gr58/.idea/
 *.iml
 *.iws
 
 # Ignore les fichiers produits par Maven pour ne versionner que le code,
 # pas les executables ou les logs.
 ../log/
-../target/
+ mif03-2021-gr58/target/
