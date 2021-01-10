@@ -50,3 +50,14 @@ Projets réalisés par :
     - le temps de chargement de la page HTML initiale : 239
     - le temps d'affichage de l'app shell : 1140
     - le temps d'affichage du chemin critique de rendu (CRP) : 1143
+
+- Déploiement sur nginx
+    - le temps de chargement de la page HTML initiale : 226
+    - le temps d'affichage de l'app shell : 620
+    - le temps d'affichage du chemin critique de rendu (CRP) : 620
+
+- Amélioration 
+    - le temps de chargement de la page HTML initiale : 5,44%
+    - le temps d'affichage de l'app shell : 45,61%
+    - le temps d'affichage du chemin critique de rendu (CRP) : 45,75%   
+        
