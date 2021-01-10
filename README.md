@@ -58,6 +58,7 @@ Projets réalisés par :
     - le temps d'affichage du chemin critique de rendu (CRP) : 620
 
 
+
 - Amélioration 
     - le temps de chargement de la page HTML initiale : 5,44%
     - le temps d'affichage de l'app shell : 45,61%
