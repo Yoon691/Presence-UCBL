@@ -42,4 +42,11 @@ Projets réalisés par :
 
 - Déploiement
     -  http://192.168.75.116:8080/v2/
-    -  https://192.168.75.116/api/v2/ (ne marche pas bien pour le moment)
+    -  https://192.168.75.116/api/v2/ 
+
+***Section TP7***
+
+- Déploiement sur Tomcat
+    - le temps de chargement de la page HTML initiale : 239
+    - le temps d'affichage de l'app shell : 1140
+    - le temps d'affichage du chemin critique de rendu (CRP) : 1143
