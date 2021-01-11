@@ -60,4 +60,39 @@ Projets réalisés par :
     - le temps de chargement de la page HTML initiale : 5,44%
     - le temps d'affichage de l'app shell : 45,61%
     - le temps d'affichage du chemin critique de rendu (CRP) : 45,75%   
+
+***Partie 3 Optimisation de votre application****
+Selon les  1er résultats de Lighthouse , nous étions à 83% pour l'accessibilité à cause de "Form element do not have associated label", après corrections nous avons les résultats suivants
+
+- Déploiement sur Tomcat
+    - le temps de chargement de la page HTML initiale : 86,66
+    - le temps d'affichage de l'app shell : 270,66
+    - le temps d'affichage du chemin critique de rendu (CRP) : 270,66.
+
+- Déploiement sur nginx
+    - le temps de chargement de la page HTML initiale : 70,94
+    - le temps d'affichage de l'app shell : 238,94
+    - le temps d'affichage du chemin critique de rendu (CRP) : 238,94
+
+- Amélioration 
+    - le temps de chargement de la page HTML initiale : 18,13%
+    - le temps d'affichage de l'app shell : 11,71%
+    - le temps d'affichage du chemin critique de rendu (CRP) : 11,71%  
+
+Selon un 2ème résultat de Lighthouse , nous étions à 78% pour le SEO à cause de "Does not have a <meta name="viewport"> tag with width or initial-scaleNo `<meta name="viewport">` tag found" et "Document does not have a meta description", après nous avons les résultats suivants
+
+- Déploiement sur Tomcat
+    - le temps de chargement de la page HTML initiale : 60,32
+    - le temps d'affichage de l'app shell : 210,20
+    - le temps d'affichage du chemin critique de rendu (CRP) : 210,25.
+
+- Déploiement sur nginx
+    - le temps de chargement de la page HTML initiale : 42,29
+    - le temps d'affichage de l'app shell : 180,75
+    - le temps d'affichage du chemin critique de rendu (CRP) : 180,75
+
+- Amélioration 
+    - le temps de chargement de la page HTML initiale : 29,89%
+    - le temps d'affichage de l'app shell : 14,01%
+    - le temps d'affichage du chemin critique de rendu (CRP) : 14,03%   
         
